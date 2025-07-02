@@ -36,7 +36,8 @@
 </head>
 <body>
 
-  <h1>CCOO FSC Consulta de Estado de Puesto  
+  <h1>CCOO FSC Consulta de Estado de Puesto 
+ 
   <br>Datos actualizados a Junio 2025</h1>
 
   <div id="buscador">
