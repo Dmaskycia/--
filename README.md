@@ -37,7 +37,7 @@
 <body>
 
   <h1>CCOO FSC Consulta de Estado de Puesto  
-  Datos actualizados a Junio 2025</h1>
+  <br>Datos actualizados a Junio 2025</h1>
 
   <div id="buscador">
     <input id="codigoPuesto" type="text" placeholder="Introduce código de puesto">
