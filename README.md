@@ -1184,7 +1184,7 @@
       }
       const registro = datos.find(item => item.codigo === codigo);
       if (!registro) {
-        resultadoDiv.innerHTML = `<p>El código de puesto no ha sido convocado <strong>${codigo}</strong>.</p>`;
+        resultadoDiv.innerHTML = `<p>El código de puesto no ha sido incluido en ninguna OPE <strong>${codigo}</strong>.</p>`;
         return;
       }
 
