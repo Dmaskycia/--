@@ -80,7 +80,7 @@
 <body>  <header>
     <h1>CCOO FSC REGIÓN DE MURCIA</h1>
   </header>  <main>
-    <h2>Consulta el estado del puesto por código</h2>
+    <h2>Consulta el estado de tu puesto provisional código</h2>
     <p><strong>Datos actualizados a junio de 2025</strong></p><div id="buscador">
   <input id="codigoPuesto" type="text" placeholder="Introduce el código del puesto">
   <button onclick="consultarPuesto()">Consultar</button>
