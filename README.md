@@ -1,57 +1,98 @@
-
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Consulta de Puestos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta de Puestos - CCOO</title>
   <style>
+    * { box-sizing: border-box; }
     body {
-      font-family: Arial, sans-serif;
-      margin: 2rem;
-      background-color: #f5f5f5;
-    }
-    h1 {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
       color: #333;
     }
-    #buscador {
+    header {
+      background-color: #cc0000;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-left: 10px solid #cc0000;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #cc0000;
       margin-bottom: 1rem;
     }
-    input, button {
+    input[type="text"] {
+      width: 70%;
       padding: 0.5rem;
       font-size: 1rem;
+      margin-right: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
     button {
+      background-color: #cc0000;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #a60000;
     }
     #resultado {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       padding: 1rem;
-      background: #fff;
-      border-radius: 0.5rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background-color: #fff3f3;
+      border: 1px solid #cc0000;
+      border-radius: 8px;
     }
-    p { margin: 0.5rem 0; }
-    strong { color: #007BFF; }
+    .ok {
+      color: green;
+    }
+    .no {
+      color: red;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #888;
+    }
   </style>
 </head>
-<body>
+<body>  <header>
+    <h1>CCOO FSC REGIÓN DE MURCIA</h1>
+  </header>  <main>
+    <h2>Consulta el estado del puesto por código</h2>
+    <p><strong>Datos actualizados a junio de 2025</strong></p><div id="buscador">
+  <input id="codigoPuesto" type="text" placeholder="Introduce el código del puesto">
+  <button onclick="consultarPuesto()">Consultar</button>
+</div>
 
-  <h1>CCOO FSC Consulta de Estado por Puesto 
- 
-  <br>
-  <br>Datos actualizados a Junio 2025</h1>
+<div id="resultado"></div>
 
-  <div id="buscador">
-    <input id="codigoPuesto" type="text" placeholder="Introduce código de puesto">
-    <button onclick="consultarPuesto()">Consultar</button>
-  </div>
-
-  <div id="resultado"></div>
-
-  <script>
-    // Array generado a partir de tu Excel (Hoja1: PUESTO, OFERTADO, CONVOCADO)
-    const datos = [
-  { codigo: 'AA00261', oferta: '24DGX00P', convocatoria: null },
+  </main>  <div class="footer">
+    CCOO, el poder de cambiar las cosas
+  </div>  <script>
+    const datos = [{ codigo: 'AA00261', oferta: '24DGX00P', convocatoria: null },
   { codigo: 'AA00374', oferta: '24DGX00P', convocatoria: null },
   { codigo: 'AA00445', oferta: '24DGX00P', convocatoria: null },
   { codigo: 'AA00558', oferta: '24DGX00P', convocatoria: null },
@@ -1175,36 +1216,37 @@
   { codigo: 'C600039', oferta: '16CAX00P', convocatoria: 'CAX00P16' },
 ];
 
+
     function consultarPuesto() {
       const codigo = document.getElementById('codigoPuesto').value.trim().toUpperCase();
       const resultadoDiv = document.getElementById('resultado');
+
       if (!codigo) {
-        resultadoDiv.innerHTML = '<p style="color:red;">Por favor, introduce un código de puesto.</p>';
-        return;
-      }
-      const registro = datos.find(item => item.codigo === codigo);
-      if (!registro) {
-        resultadoDiv.innerHTML = `<p>El código de puesto no ha sido incluido en ninguna OPE <strong>${codigo}</strong>.</p>`;
+        resultadoDiv.innerHTML = '<p class="no">Por favor, introduce un código de puesto.</p>';
         return;
       }
 
-      let html = `<p>Resultados para el puesto <strong>${codigo}</strong>:</p>`;
-      // Ofertado
-      if (registro.oferta) {
-        html += `<p>✅ Ha sido <strong>ofertado</strong>. Código de oferta: <strong>${registro.oferta}</strong>.</p>`;
-      } else {
-        html += `<p>❌ <strong>No</strong> ha sido ofertado.</p>`;
+      const registro = datos.find(item => item.codigo === codigo);
+      if (!registro) {
+        resultadoDiv.innerHTML = `<p class="no">El código de puesto <strong>${codigo}</strong> no ha sido incluido en ninguna OPE.</p>`;
+        return;
       }
-      // Convocado
-      if (registro.convocatoria) {
-        html += `<p>✅ Ha sido <strong>convocado</strong>. Código de convocatoria: <strong>${registro.convocatoria}</strong>.</p>`;
+
+      let html = `<p><strong>Resultado para el puesto ${codigo}:</strong></p>`;
+
+      if (registro.oferta) {
+        html += `<p class="ok">✅ Ha sido <strong>ofertado</strong>. Código: <strong>${registro.oferta}</strong></p>`;
       } else {
-        html += `<p>❌ <strong>No</strong> ha sido convocado.</p>`;
+        html += `<p class="no">❌ No ha sido ofertado.</p>`;
+      }
+
+      if (registro.convocatoria) {
+        html += `<p class="ok">✅ Ha sido <strong>convocado</strong>. Código: <strong>${registro.convocatoria}</strong></p>`;
+      } else {
+        html += `<p class="no">❌ No ha sido convocado.</p>`;
       }
 
       resultadoDiv.innerHTML = html;
     }
-  </script>
-
-</body>
+  </script></body>
 </html>
